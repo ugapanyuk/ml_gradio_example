@@ -9,7 +9,7 @@ def load_data():
     '''
     Загрузка данных
     '''
-    data = pd.read_csv('data/occupancy_datatraining.txt', sep=",")
+    data = pd.read_csv('data/occupancy_datatraining.txt', sep=",", nrows=500)
     return data
 
 def preprocess_data(data_in):
@@ -32,6 +32,7 @@ def preprocess_data(data_in):
 data = load_data()
 data_X, data_y = preprocess_data(data)
 
+
 def knn(cv_knn, cv_slider):
     '''
     Входы и выходы функции соединены с компонентами в интерфейсе
@@ -42,8 +43,8 @@ def knn(cv_knn, cv_slider):
     return scores_dict, scores_dict, np.mean(scores)
 
 #Входные компоненты
-cv_knn = gr.inputs.Slider(minimum=1, maximum=1000, step=1, default=5, label='Количество соседей')
-cv_slider = gr.inputs.Slider(minimum=3, maximum=20, step=1, default=5, label='Количество фолдов') 
+cv_knn = gr.inputs.Slider(minimum=1, maximum=300, step=1, default=5, label='Количество соседей')
+cv_slider = gr.inputs.Slider(minimum=3, maximum=10, step=1, default=5, label='Количество фолдов') 
 
 #Выходные компоненты
 out_folds_label = gr.outputs.Label(type='confidences', label='Оценки по фолдам (Label)')
